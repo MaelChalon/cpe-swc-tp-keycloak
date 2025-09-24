@@ -39,7 +39,6 @@ def callback():
     return redirect("/account")
 
 
-
 @app.route("/login")
 def login():
     return redirect(
@@ -53,7 +52,7 @@ def login():
 
 @app.route("/account")
 def account():
-    return render_template("logged.html", 
+    return render_template("account.html", 
                            email=session["user_info"]["email"],
                            name=session["user_info"]["given_name"], 
                            lastname=session["user_info"]["family_name"], 
@@ -64,7 +63,9 @@ def account():
 
 @app.route("/logout")
 def logout():
-    return "The logout page is not implemented yet"
+    keycloak_openid.logout(session["refresh_token"])
+    session.clear()
+    return redirect("/")
 
 
 if __name__ == "__main__":

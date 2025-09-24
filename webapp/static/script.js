@@ -17,3 +17,8 @@ const signIn = document.getElementById('signIn');
 signIn.addEventListener('click', () => {
     window.location.href = "/login"
 })
+
+const signOut = document.getElementById('signOut');
+signOut.addEventListener('click', () => {
+    window.location.href = "/logout"
+})

@@ -31,8 +31,11 @@ def callback():
         grant_type="authorization_code",
         redirect_uri="http://localhost:8081/callback"
     )
-    session["JWT"] = keycloak_openid.userinfo(token["access_token"])
-    print(session["JWT"])
+    print(token)
+    session["refresh_token"] = token["refresh_token"]
+    session["JWT"] = token["access_token"]
+    session["user_info"] = keycloak_openid.userinfo(token["access_token"])
+    print(session["user_info"])
     return redirect("/account")
 
 
@@ -50,7 +53,13 @@ def login():
 
 @app.route("/account")
 def account():
-    return "The account page is not implemented yet"
+    return render_template("logged.html", 
+                           email=session["user_info"]["email"],
+                           name=session["user_info"]["given_name"], 
+                           lastname=session["user_info"]["family_name"], 
+                           realmrole=session["user_info"]["sub"],
+                           token=session["JWT"],
+                           refreshtoken=session["refresh_token"])
 
 
 @app.route("/logout")

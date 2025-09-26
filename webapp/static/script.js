@@ -12,13 +12,18 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000 * 30);
 
-// Redirect to login on button clock
+// Redirect to login on button click
 const signIn = document.getElementById('signIn');
-signIn.addEventListener('click', () => {
-    window.location.href = "/login"
-})
+if (signIn) {
+    signIn.addEventListener('click', () => {
+        window.location.href = "/login";
+    });
+}
 
+// Redirect to logout on button click
 const signOut = document.getElementById('signOut');
-signOut.addEventListener('click', () => {
-    window.location.href = "/logout"
-})
+if (signOut) {
+    signOut.addEventListener('click', () => {
+        window.location.href = "/logout";
+    });
+}
